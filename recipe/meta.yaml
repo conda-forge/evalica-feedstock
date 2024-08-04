@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/evalica-{{ version }}.tar.gz
-  sha256: a75ceb91e7dc739bc73ccb3bcf2b773b21850506c898cca71caa55f26bef8345
+  sha256: 3549ef4f7a2ad9f9708d8d195f0923a8f614bfb1d8c92fe9841dd69b10f9ea8b
 
 build:
   entry_points:
@@ -15,7 +15,7 @@ build:
   script:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 2
+  number: 0
 
 requirements:
   build:
