@@ -1,5 +1,5 @@
 {% set name = "evalica" %}
-{% set version = "0.2.0" %}
+{% set version = "0.3.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/evalica-{{ version }}.tar.gz
-  sha256: b3dc2a7114ca36e874236685025b7ec83e85749b9e09949f875f73c31594ecf6
+  sha256: 07a4f5ef750fa652254a517389b66b2cdbba46420fc3e2ea600dd74595463fe3
 
 build:
   entry_points:
@@ -15,7 +15,7 @@ build:
   script:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
