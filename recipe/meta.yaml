@@ -1,13 +1,13 @@
 {% set name = "evalica" %}
-{% set version = "0.3.0" %}
+{% set version = "0.3.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/evalica-{{ version }}.tar.gz
-  sha256: 07a4f5ef750fa652254a517389b66b2cdbba46420fc3e2ea600dd74595463fe3
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/evalica-{{ version }}.tar.gz
+  sha256: 44de2a2c4b742ca4a82c9fa032dec0ce6167e78e159a8c07dbb4268cf7e857b5
 
 build:
   entry_points:
