@@ -12,16 +12,14 @@ source:
 
 build:
   number: 0
-  ignore_run_exports_from:
-    - libblas
-    - numpy
   entry_points:
     - evalica = evalica.__main__:main
   script:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
-    - export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"  # [not win]
-    - MATURIN_PEP517_ARGS="--features python,openblas-src" {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [not win]
-    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [win]
+    - export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"  # [unix]
+    - set "PKG_CONFIG_PATH=%PREFIX%\Library\lib\pkgconfig"  # [win]
+    - MATURIN_PEP517_ARGS="--features python,netlib-src" {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [unix]
+    - set "MATURIN_PEP517_ARGS=--features python,netlib-src" && {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [win]
   python_version_independent: true  # [is_abi3]
   skip: true  # [is_abi3 and not is_python_min]
 
@@ -31,22 +29,18 @@ requirements:
     - {{ compiler('rust') }}
     - {{ stdlib('c') }}
     - cargo-bundle-licenses
-    - pkg-config  # [not win]
+    - pkg-config
   host:
-    - libblas * *openblas
-    - openblas  # [not win]
+    - libblas
     - maturin
-    - numpy
-    - pandas
     - pip
     - python-abi3  # [is_abi3]
     - python
   run:
-    - numpy
-    - pandas
     - python
+    - pandas
     - scipy
-    - libopenblas  # [not win]
+    - libblas
 
 test:
   imports:
@@ -56,7 +50,7 @@ test:
     - evalica --help
     - {{ PYTHON }} -c 'import evalica, sys; print("BLAS:", blas := evalica._brzo.HAS_BLAS); sys.exit(int(not blas))'
     - abi3audit $SP_DIR/evalica/_brzo.abi3.so -s -v --assume-minimum-abi3 {{ python_min }}  # [unix and is_abi3]
-    - abi3audit %SP_DIR%/evalica/_brzo.pyd -s -v --assume-minimum-abi3 {{ python_min }}  # [win and is_abi3]
+    - abi3audit %SP_DIR%\evalica\_brzo.pyd -s -v --assume-minimum-abi3 {{ python_min }}  # [win and is_abi3]
   requires:
     - pip
     - abi3audit  # [is_abi3]
