@@ -12,6 +12,9 @@ source:
 
 build:
   number: 0
+  ignore_run_exports:
+    - python
+    - libgfortran5
   entry_points:
     - evalica = evalica.__main__:main
   script:
@@ -26,7 +29,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('fortran') }}
+    - {{ compiler('fortran') }}  # [unix]
     - {{ compiler('rust') }}
     - {{ stdlib('c') }}
     - cargo-bundle-licenses
