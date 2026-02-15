@@ -35,6 +35,7 @@ requirements:
     - numpy
     - pandas
     - pip
+    - python-abi3  # [is_abi3]
     - python
   run:
     - pandas
