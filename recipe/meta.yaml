@@ -1,13 +1,14 @@
 {% set name = "evalica" %}
 {% set version = "0.4.0.post1" %}
+{% set sha256 = "4ec1e857ffde448e582794e06d3336a46e93aa3fe64aec8ebbc7eadb53a66807" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name | lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/evalica-{{ version }}.tar.gz
-  sha256: 4ec1e857ffde448e582794e06d3336a46e93aa3fe64aec8ebbc7eadb53a66807
+  sha256: {{ sha256 }}
 
 build:
   number: 0
@@ -53,7 +54,7 @@ test:
   commands:
     - pip check
     - evalica --help
-    - python3 -c 'import evalica, sys; print("BLAS:", blas := evalica._brzo.HAS_BLAS); sys.exit(int(not blas))'
+    - {{ PYTHON }} -c 'import evalica, sys; print("BLAS:", blas := evalica._brzo.HAS_BLAS); sys.exit(int(not blas))'
     - abi3audit $SP_DIR/evalica/_brzo.abi3.so -s -v --assume-minimum-abi3 {{ python_min }}  # [unix and is_abi3]
     - abi3audit %SP_DIR%/evalica/_brzo.pyd -s -v --assume-minimum-abi3 {{ python_min }}  # [win and is_abi3]
   requires:
@@ -64,10 +65,9 @@ about:
   home: https://github.com/dustalov/evalica
   summary: Evalica, your favourite evaluation toolkit.
   description: |
-    Evalica is a Python library that transforms pairwise comparisons
-    into ranked lists of items. It offers convenient high-performant
-    Rust implementations of the corresponding methods via PyO3,
-    and additionally provides naïve Python code for most of them.
+    Evalica is an evaluation toolkit for statistical analysis,
+    combining fast Rust implementations with Python APIs for
+    ranking, reliability, and uncertainty estimation.
   license: Apache-2.0
   license_file:
     - LICENSE
