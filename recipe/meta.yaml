@@ -14,7 +14,8 @@ build:
     - evalica = evalica.__main__:main
   script:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
-    - MATURIN_PEP517_ARGS="--features openblas-src" {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+    - MATURIN_PEP517_ARGS="--features openblas-src" {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [not win]
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [win]
   number: 0
 
 requirements:
