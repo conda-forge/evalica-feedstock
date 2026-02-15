@@ -14,6 +14,7 @@ build:
     - evalica = evalica.__main__:main
   script:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+    - export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"  # [not win]
     - MATURIN_PEP517_ARGS="--features openblas-src" {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [not win]
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [win]
   number: 0
@@ -27,6 +28,7 @@ requirements:
     - pkg-config  # [not win]
   host:
     - libblas * *openblas
+    - openblas  # [not win]
     - maturin
     - numpy
     - pandas
@@ -35,6 +37,7 @@ requirements:
   run:
     - pandas
     - python
+    - scipy
 
 test:
   imports:
