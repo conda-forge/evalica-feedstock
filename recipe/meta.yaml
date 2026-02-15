@@ -11,6 +11,9 @@ source:
 
 build:
   number: 0
+  ignore_run_exports_from:
+    - libblas
+    - numpy
   entry_points:
     - evalica = evalica.__main__:main
   script:
@@ -38,9 +41,11 @@ requirements:
     - python-abi3  # [is_abi3]
     - python
   run:
+    - numpy
     - pandas
     - python
     - scipy
+    - libopenblas  # [not win]
 
 test:
   imports:
@@ -48,8 +53,9 @@ test:
   commands:
     - pip check
     - evalica --help
-    - abi3audit $SP_DIR/spam.abi3.so -s -v --assume-minimum-abi3 {{ python_min }}  # [unix and is_abi3]
-    - abi3audit %SP_DIR%/spam.pyd -s -v --assume-minimum-abi3 {{ python_min }}  # [win and is_abi3]
+    - python3 -c 'import evalica, sys; print("BLAS:", blas := evalica._brzo.HAS_BLAS); sys.exit(int(not blas))'
+    - abi3audit $SP_DIR/evalica/_brzo.abi3.so -s -v --assume-minimum-abi3 {{ python_min }}  # [unix and is_abi3]
+    - abi3audit %SP_DIR%/evalica/_brzo.pyd -s -v --assume-minimum-abi3 {{ python_min }}  # [win and is_abi3]
   requires:
     - pip
     - abi3audit  # [is_abi3]
