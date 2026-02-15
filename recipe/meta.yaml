@@ -26,6 +26,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ compiler('fortran') }}
     - {{ compiler('rust') }}
     - {{ stdlib('c') }}
     - cargo-bundle-licenses
@@ -37,12 +38,10 @@ requirements:
     - python-abi3  # [is_abi3]
     - python
   run:
-    - libblas * *openblas
-    - openblas
     - python
     - pandas
     - scipy
-    - libblas
+    - libopenblas
 
 test:
   imports:
