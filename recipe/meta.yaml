@@ -10,6 +10,7 @@ source:
   sha256: 4ec1e857ffde448e582794e06d3336a46e93aa3fe64aec8ebbc7eadb53a66807
 
 build:
+  number: 0
   entry_points:
     - evalica = evalica.__main__:main
   script:
@@ -17,7 +18,8 @@ build:
     - export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"  # [not win]
     - MATURIN_PEP517_ARGS="--features python,openblas-src" {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [not win]
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [win]
-  number: 0
+  python_version_independent: true  # [is_abi3]
+  skip: true  # [is_abi3 and not is_python_min]
 
 requirements:
   build:
@@ -45,8 +47,11 @@ test:
   commands:
     - pip check
     - evalica --help
+    - abi3audit $SP_DIR/spam.abi3.so -s -v --assume-minimum-abi3 {{ python_min }}  # [unix and is_abi3]
+    - abi3audit %SP_DIR%/spam.pyd -s -v --assume-minimum-abi3 {{ python_min }}  # [win and is_abi3]
   requires:
     - pip
+    - abi3audit  # [is_abi3]
 
 about:
   home: https://github.com/dustalov/evalica
