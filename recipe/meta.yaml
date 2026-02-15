@@ -23,6 +23,7 @@ requirements:
     - {{ compiler('rust') }}
     - {{ stdlib('c') }}
     - cargo-bundle-licenses
+    - pkg-config  # [not win]
   host:
     - libblas * *openblas
     - maturin
