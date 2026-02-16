@@ -52,7 +52,7 @@ test:
   commands:
     - pip check
     - evalica --help
-    - python -c 'import evalica, sys; print("BLAS:", blas := evalica._brzo.HAS_BLAS); sys.exit(int(not blas))'
+    - python -c "import evalica, sys; print('BLAS:', blas := evalica._brzo.HAS_BLAS); sys.exit(int(not blas))"
     - abi3audit $SP_DIR/evalica/_brzo.abi3.so -s -v --assume-minimum-abi3 {{ python_min }}  # [unix and is_abi3]
     - abi3audit %SP_DIR%\evalica\_brzo.pyd -s -v --assume-minimum-abi3 {{ python_min }}  # [win and is_abi3]
   requires:
