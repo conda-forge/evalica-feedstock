@@ -34,6 +34,7 @@ requirements:
     - pkg-config
   host:
     - libopenblas
+    - openblas
     - maturin
     - pip
     - python-abi3  # [is_abi3]
