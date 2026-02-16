@@ -14,7 +14,6 @@ build:
   number: 0
   ignore_run_exports:
     - python
-    - libgfortran5
   entry_points:
     - evalica = evalica.__main__:main
   script:
@@ -29,7 +28,6 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('fortran') }}  # [unix]
     - {{ compiler('rust') }}
     - {{ stdlib('c') }}
     - cargo-bundle-licenses
@@ -41,10 +39,11 @@ requirements:
     - python-abi3  # [is_abi3]
     - python
   run:
+    - libblas * *openblas
+    - openblas
     - python
     - pandas
     - scipy
-    - libopenblas
 
 test:
   imports:
@@ -52,7 +51,7 @@ test:
   commands:
     - pip check
     - evalica --help
-    - {{ PYTHON }} -c 'import evalica, sys; print("BLAS:", blas := evalica._brzo.HAS_BLAS); sys.exit(int(not blas))'
+    - python -c 'import evalica, sys; print("BLAS:", blas := evalica._brzo.HAS_BLAS); sys.exit(int(not blas))'
     - abi3audit $SP_DIR/evalica/_brzo.abi3.so -s -v --assume-minimum-abi3 {{ python_min }}  # [unix and is_abi3]
     - abi3audit %SP_DIR%\evalica\_brzo.pyd -s -v --assume-minimum-abi3 {{ python_min }}  # [win and is_abi3]
   requires:
