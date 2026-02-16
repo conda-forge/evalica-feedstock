@@ -9,10 +9,9 @@ Package license: Apache-2.0
 
 Summary: Evalica, your favourite evaluation toolkit.
 
-Evalica is a Python library that transforms pairwise comparisons
-into ranked lists of items. It offers convenient high-performant
-Rust implementations of the corresponding methods via PyO3,
-and additionally provides naïve Python code for most of them.
+Evalica is an evaluation toolkit for statistical analysis,
+combining fast Rust implementations with Python APIs for
+ranking, reliability, and uncertainty estimation.
 
 
 Current build status

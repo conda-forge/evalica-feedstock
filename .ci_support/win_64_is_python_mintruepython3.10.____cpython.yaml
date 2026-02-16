@@ -10,8 +10,8 @@ is_abi3:
 - true
 is_python_min:
 - true
-numpy:
-- '2'
+openblas:
+- 0.3.*
 pin_run_as_build:
   python:
     min_pin: x.x
