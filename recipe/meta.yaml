@@ -33,14 +33,13 @@ requirements:
     - cargo-bundle-licenses
     - pkg-config
   host:
-    - openblas
+    - libopenblas
     - maturin
     - pip
     - python-abi3  # [is_abi3]
     - python
   run:
-    - libblas * *openblas
-    - openblas
+    - libopenblas
     - python
     - pandas
     - scipy
