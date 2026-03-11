@@ -1,6 +1,6 @@
 {% set name = "evalica" %}
-{% set version = "0.4.0.post1" %}
-{% set sha256 = "4ec1e857ffde448e582794e06d3336a46e93aa3fe64aec8ebbc7eadb53a66807" %}
+{% set version = "0.4.1" %}
+{% set sha256 = "af9fd32b77c8215273a963445ff86bc2f05462d1544dc0da24d5574350c70cbf" %}
 
 package:
   name: {{ name | lower }}
