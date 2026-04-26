@@ -12,6 +12,7 @@ jobs:
         CONFIG: osx_64_is_python_mintruepython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
+        store_build_artifacts: false
   timeoutInMinutes: 360
   variables: {}
 
