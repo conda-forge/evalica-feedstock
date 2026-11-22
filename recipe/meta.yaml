@@ -1,13 +1,13 @@
 {% set name = "evalica" %}
-{% set version = "0.4.2" %}
-{% set sha256 = "f96c7872e89d82cc0661239ac1244745f34679dd594ff899d4bf0e00ba2b811c" %}
+{% set version = "0.4.3" %}
+{% set sha256 = "559f798c221399f5464f18c48c4270d66aa84aad48c460a19d1f1d48022eaba6" %}
 
 package:
   name: {{ name | lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/evalica-{{ version }}.tar.gz
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/evalica-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
@@ -31,7 +31,7 @@ requirements:
     - {{ compiler('rust') }}
     - {{ stdlib('c') }}
     - cargo-bundle-licenses
-    - pkg-config
+    - pkgconf
   host:
     - libopenblas
     - openblas
@@ -41,8 +41,8 @@ requirements:
     - python
   run:
     - libopenblas
-    - openblas
     - python
+    - numpy >=1.16.0
     - pandas
     - scipy
 
