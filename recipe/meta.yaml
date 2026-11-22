@@ -31,7 +31,7 @@ requirements:
     - {{ compiler('rust') }}
     - {{ stdlib('c') }}
     - cargo-bundle-licenses
-    - pkg-config
+    - pkgconf
   host:
     - libopenblas
     - openblas
@@ -41,8 +41,8 @@ requirements:
     - python
   run:
     - libopenblas
-    - openblas
     - python
+    - numpy >=1.16.0
     - pandas
     - scipy
 
